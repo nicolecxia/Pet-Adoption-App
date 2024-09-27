@@ -1,5 +1,5 @@
 # Pet-Adoption-App
-React Native
+
 This is a Pet Adoption App code by React Native, which uses the FireStore Database for data storage and authentication.
 Users can browse and post pet info for adoption.
 
