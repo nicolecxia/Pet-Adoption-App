@@ -1,9 +1,13 @@
-import { getAuth, signOut, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged, signInWithEmailAndPassword,createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./config";
 
 
 export async function userSignIn(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
+}
+
+export async function userSignUp(email, password) {
+    return createUserWithEmailAndPassword(auth,email,password);
 }
 
 export async function userSignOut() {

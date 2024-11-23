@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MineLayout from "../../components/MineLayout";
 import Form from "../../components/Form";
 import PostList from "../../components/PostList";
+import SignUp from "../../components/SignUp";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,7 @@ export default function MineScreen({ navigation }) {
                     <PostList showDelete={true} showLike={false} />
                 )}
             </Stack.Screen>
-
+            <Stack.Screen name="SignUp" component={SignUp} options={{ title: 'Sign Up' }} />
         </Stack.Navigator>
 
 

@@ -3,7 +3,8 @@ import styles from "./styles";
 import * as database from './../../database';
 import { useDispatch } from "react-redux";
 import { setPosts } from "../../redux/postsSlice";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 export default function MineLayout({ navigation, route }) {
@@ -13,7 +14,16 @@ export default function MineLayout({ navigation, route }) {
     const [password, setPassword] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
 
-
+   useFocusEffect(
+    React.useCallback(()=>{
+        if(route.params?.update){
+            setUserUID(database.userUID);
+            setEmail(database.userEmail);
+            console.log("MineLayout database.userUID:"+database.userUID);
+            console.log("MineLayout database.userEmail:"+database.userEmail);
+        }
+    },[route.params?.update])
+   );
 
     const handleLikesPostPress = async () => {
         let data = await database.loadByConditions('liked', true);
@@ -22,7 +32,7 @@ export default function MineLayout({ navigation, route }) {
         navigation.navigate('MyLikes');
     }
 
-    const handleMyPostPress = async ()=>{
+    const handleMyPostPress = async () => {
         let data = await database.loadByConditions('userid', userUID);
         dispatch(setPosts(data));
 
@@ -31,6 +41,10 @@ export default function MineLayout({ navigation, route }) {
 
     const handleAddPostPress = async () => {
         navigation.navigate('Add');
+    }
+
+    const handleSignUpPress = async () => {
+        navigation.navigate('SignUp');
     }
 
     const handleSigninPress = async () => {
@@ -112,6 +126,11 @@ export default function MineLayout({ navigation, route }) {
                     <View style={styles.button}>
                         <Pressable onPress={handleSigninPress}>
                             <Text style={styles.buttonText}>Sign In</Text>
+                        </Pressable>
+                    </View>
+                    <View style={styles.button}>
+                        <Pressable onPress={handleSignUpPress}>
+                            <Text style={styles.buttonText}>Sign Up</Text>
                         </Pressable>
                     </View>
                 </View>
